@@ -151,9 +151,70 @@ public class Main_bj_16935_배열돌리기_진명인 {
 		 
 	}
 	
+	public static void swap6() {
+		
+		int[][] temp = new int[n/2][m/2];
+		
+		//1번 그룹 저장 
+		for (int i = 0; i<n/2; i++) {
+			for (int j = 0; j<m/2; j++) {
+				temp[i][j] = arr[i][j];
+			}
+		}
+		
+		int r = 0; 
+		int c = 0;
+		
+		//2번 그룹 1번으로 옮김 
+		for (int i = 0; i<n/2; i++) {
+			for (int j = m/2; j<m; j++) {
+				arr[r][c++] = arr[i][j];
+			}
+			r++;
+			c = 0;
+		}
+		
+		r = 0;
+		c = m/2;
+		
+		//3번 그룹 2번으로 옮김
+		for (int i = n/2; i<n; i++) {
+			for (int j = m/2; j<m; j++) {
+				arr[r][c++] = arr[i][j]; 
+			}
+			r++;
+			c = m/2;
+		}
+		
+		//4번 그룹을 3번 그룹으로 
+		r = n/2;
+		c = 0;
+		
+		for (int i = n/2; i<n; i++) {
+			for (int j = m/2; j<m; j++) {
+				arr[i][j] = arr[r][c++];
+			}
+			c= 0;
+			r++;
+		}
+		
+		r = 0; 
+		c = 0;
+		
+		// 1번 그룹을 (temp) 4번 그룹에 
+		for (int i = n/2; i<n; i++) {
+			for (int j = 0; j<m/2; j++) {
+				arr[i][j] = temp[r][c++];
+			}
+			c=0;
+			r++;
+		}
+		
+	}
+	
 	
 	public static void main(String[] args) throws Exception {
-		System.setIn(new FileInputStream("res/input_bj_16935"));
+		//System.setIn(new FileInputStream("res/input_bj_16935"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String str;
 		StringTokenizer st = null;
@@ -176,8 +237,11 @@ public class Main_bj_16935_배열돌리기_진명인 {
 		//for (int[] t : arr) System.out.println(Arrays.toString(t));
 		
 		int type;
+		str = br.readLine();
+		st = new StringTokenizer(str);
+		
 		for (int i = 0; i<r; i++) {
-			type = Integer.parseInt(br.readLine());
+			type = Integer.parseInt(st.nextToken());
 			
 			switch (type) {
 			
@@ -200,8 +264,13 @@ public class Main_bj_16935_배열돌리기_진명인 {
 			case 5 :
 				swap5();
 				break;
-			}
 			
+			
+			case 6 :
+				swap6();
+				break;
+			}
+				
 		}
 		
 		int maxNum = Math.max(m, n);
