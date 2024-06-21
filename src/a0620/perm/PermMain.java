@@ -8,13 +8,14 @@ import java.io.*;
 // 6월 21일 시험보는 내용
 // 순연 만들기
 
+// 이 문제는 4P3 순열문제
 
 public class PermMain {
 	static int N=4, R=3, C=0;
-	static int[] a= {1,2,3,5}, b = new int[R];
+	static int[] a= {1,2,3,4}, b = new int[R];
 	static boolean[] v = new boolean[N];
 	
-	public static void perm(int cnt) {
+	static void perm(int cnt) {
 		if(cnt == R) {
 			System.out.println(Arrays.toString(b)); C++;
 			return;
