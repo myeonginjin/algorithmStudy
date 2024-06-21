@@ -12,8 +12,11 @@ public class Main_2961 {
 	public static void subCom(int index, int sour, int solt) {
 		
 		if(index == n) {
+			if(sour==1 && solt == 0) return;
 			
 			//System.out.println(sour +" "+solt);
+			
+			
 			minDif = Math.min(Math.abs(sour-solt), minDif);
 			
 			return;
