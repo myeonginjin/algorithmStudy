@@ -14,12 +14,13 @@ public class BfsDfsReturn {
 		return i>=0 && i<N && j >= 0 && j<N;
 	}
 	
-	static void bfs(int i, int j) {
+	static int bfs(int i, int j) {
 		ArrayDeque<int[]> q = new ArrayDeque<>();
-		
+	
 		//방문처리 먼저 하고 시작하기. 그래야 우선순위큐로 푸는 문제에서 큐가 안터지게 할 수 있다? 암튼 큐에 들어가는걸 최소한으로 해야됨
 		v[i][j] = true;
 		q.offer(new int[] {i,j});
+		int cnt = 0;
 		
 		while(!q.isEmpty()) {
 			int[] ij = q.poll();
@@ -33,12 +34,14 @@ public class BfsDfsReturn {
 				if(indexOk(ni, nj) && !v[ni][nj]) {
 					v[ni][nj] = true;
 					q.offer(new int[] {ni,nj});
+					cnt++;
 				}
 			}
 		}
-		
+		return cnt++;
 	}
-	static void dfs(int i, int j) {
+	static int dfs(int i, int j) {
+		int cnt = 1;
 		v[i][j] = true;
 		a[i][j] = C++;
 		
@@ -47,17 +50,18 @@ public class BfsDfsReturn {
 			int nj = j +dj[d];
 			
 			if(indexOk(ni,nj) && !v[ni][nj]) {
-				dfs(ni,nj);
+				cnt = cnt + dfs(ni,nj);
 			}
 		}
-		
+		return cnt;
 	}
 
 	public static void main(String[] args) throws Exception{
 		a = new int[N][N];
 		v = new boolean[N][N];
 		C=1;
-		bfs(N/2,N/2);
+		//System.out.println(bfs(N/2,N/2));
+		System.out.println(dfs(N/2,N/2));
 		for(int[] b : a) System.out.println(Arrays.toString(b)); System.out.println();
 
 	}
