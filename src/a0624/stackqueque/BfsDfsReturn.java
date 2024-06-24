@@ -3,7 +3,7 @@ package a0624.stackqueque;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 
-public class BfsDfsMain {
+public class BfsDfsReturn {
 	static final int[] di = {-1,0,1,0}; //상우하좌 
 	static final int[] dj = {0,1,0,-1};
 	static int N = 5, C=0;
