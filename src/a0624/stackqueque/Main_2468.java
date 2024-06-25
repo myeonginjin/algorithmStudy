@@ -29,10 +29,11 @@ public class Main_2468 {
 	}
 	
 	static void bfs(int i, int j) {
-		dq.offer(new int[] {i,j});
+		
+		//방문처리는 무조건 큐에 넣기 전에 하기 !!! 
 		v[i][j] = true;
 		
-		
+		dq.offer(new int[] {i,j});
 		
 		while (!dq.isEmpty()) {
 			int[] ij = dq.poll();
