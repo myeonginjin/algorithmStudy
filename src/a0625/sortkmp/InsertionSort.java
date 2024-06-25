@@ -27,6 +27,8 @@ public class InsertionSort {
 			System.out.println(Arrays.toString(a));
 		}
 		
+		
+		
 		System.out.println(Arrays.toString(a));
 	}
 
