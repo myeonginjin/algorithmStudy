@@ -43,7 +43,12 @@ public class PriorityQueueMain {
 		while(!pq.isEmpty()) System.out.println(pq.poll());
 		System.out.println();
 		
-		PriorityQueue<Car> pcq = new PriorityQueue<>((o1,o2)->{return -Integer.compare(o1.year, o2.year);});
+		//PriorityQueue<Car> pcq = new PriorityQueue<>((o1,o2)->{return -Integer.compare(o1.year, o2.year);});
+		PriorityQueue<Car> pcq = new PriorityQueue<>( (o1,o2) ->  {
+			if (o1.name == o2.name ) { return Integer.compare(o1.year, o2.year);}
+			return o1.name.compareTo(o2.name);
+			 }
+		);
 		pcq.offer(new Car("아반떼",2015));
 		pcq.offer(new Car("그랜저",2014));
 		pcq.offer(new Car("소나타",2012));
