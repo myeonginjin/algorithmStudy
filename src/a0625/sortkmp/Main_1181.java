@@ -8,13 +8,16 @@ public class Main_1181 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
 		
-		List<String> arr = new ArrayList<>();
+		
+		HashSet<String> s = new HashSet<>();
+		
 		for (int i = 0; i<n; i++) {
 			String elm = br.readLine();
 			
-			if(arr.contains(elm)) continue;
-			else arr.add(elm);
+			if(!s.contains(elm)) s.add(elm);
 		}
+		
+		List<String> arr = new ArrayList<>(s);
 		
 		Collections.sort(arr , (o1,o2) -> {
 			if(o1.length()==o2.length()) return o1.compareTo(o2);
@@ -22,6 +25,6 @@ public class Main_1181 {
 		});
 		
 		
-		for(String s : arr) System.out.println(s);
+		for(String t : arr) System.out.println(t);
 	}
 }
