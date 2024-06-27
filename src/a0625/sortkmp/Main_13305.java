@@ -30,7 +30,7 @@ public class Main_13305 {
 //		System.out.println(Arrays.toString(price));
 		
 		int minPrice = 1000000000;
-		long sum = 0L;
+		long sum = 0;
 		
 		for (int i = 0; i<n-1; i++) {
 			if(minPrice > price[i]) {
