@@ -44,9 +44,7 @@ public class Main_2580 {
 			break;
 		}
 		
-		
-		
-		
+
 		switch (c) {
 		case 0 : case 1 : case 2 :
 			sC = 0;
@@ -70,14 +68,47 @@ public class Main_2580 {
 		return true;
 	}
 	
-	static void back(int r, int c, int n) {
-		if(n>9) return;
-		
-		if(check(r,c,n)) {
-			arr[r][c] = n; 
+	static void back(int r, int c) {
+		if(c == 9) {
+			back(r+1, 0);
 			return;
 		}
-		back(r,c,n+1);
+		
+		if ( r == 9) {
+			for(int[] a : arr) {
+				for(int t : a) System.out.print(t+" ");
+				System.out.println();
+			}
+			System.exit(0);
+		}
+		
+//		if(arr[r][c] != 0) {
+//			if(c==8) {
+//				back(r+1,0);
+//			}
+//			else back(r,c+1);
+//			
+//			return;
+//		}
+		
+		
+		if (arr[r][c]==0) {
+			for (int i = 1; i<10; i++) {
+				if(check(r,c,i)) {
+					arr[r][c] = i;
+					
+					back(r,c+1);
+				}
+
+			}
+			arr[r][c] = 0;
+			return;
+		}
+		
+		back(r,c+1);
+
+		
+		
 	}
 	
 	public static void main(String[] args) throws Exception {
@@ -94,16 +125,9 @@ public class Main_2580 {
 			}
 		}
 		
-		for (int i = 0; i<9; i++) {
-			for (int j = 0; j<9; j++) {
-				if(arr[i][j]==0) back(i,j, 1);
-			}
-		}
+		back(0,0);
 		
-		for(int[] a : arr) {
-			for(int t : a) System.out.print(t+" ");
-			System.out.println();
-		}
+
 		
 	}
 
