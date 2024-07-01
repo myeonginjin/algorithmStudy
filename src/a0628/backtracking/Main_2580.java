@@ -69,10 +69,10 @@ public class Main_2580 {
 	}
 	
 	static void back(int r, int c) {
-		if(c == 9) {
-			back(r+1, 0);
-			return;
-		}
+//		if(c == 9) {
+//			back(r+1, 0);
+//			return;
+//		}
 		
 		if ( r == 9) {
 			for(int[] a : arr) {
@@ -83,10 +83,7 @@ public class Main_2580 {
 		}
 		
 //		if(arr[r][c] != 0) {
-//			if(c==8) {
-//				back(r+1,0);
-//			}
-//			else back(r,c+1);
+
 //			
 //			return;
 //		}
@@ -97,7 +94,10 @@ public class Main_2580 {
 				if(check(r,c,i)) {
 					arr[r][c] = i;
 					
-					back(r,c+1);
+					if(c==8) {
+						back(r+1,0);
+					}
+					else back(r,c+1);
 				}
 
 			}
@@ -105,7 +105,10 @@ public class Main_2580 {
 			return;
 		}
 		
-		back(r,c+1);
+		if(c==8) {
+			back(r+1,0);
+		}
+		else back(r,c+1);
 
 		
 		
