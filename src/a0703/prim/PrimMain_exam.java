@@ -3,7 +3,7 @@ package a0703.prim;
 import java.io.*;
 import java.util.*;
 
-public class PrimMain_test {
+public class PrimMain_exam {
 	public static void main(String[] args) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		int N = sc.nextInt();
