@@ -11,7 +11,6 @@ public class Main_9663 {
 	static boolean canGo (int rI) {
 		
 
-		
 		for (int i = 0; i<rI; i++) {
 			
 //			if(rI == 1 && cnt==0 && arr[0]==1) {

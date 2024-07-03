@@ -27,16 +27,9 @@ public class Main_2178 {
 				int nextR = t[0] + dx[i];
 				int nextC = t[1] + dy[i];
 				
-				if(indexOk(nextR,nextC) && v[nextR][nextC] && arr[nextR][nextC] != 0) {
+				if(indexOk(nextR,nextC) && !v[nextR][nextC] && arr[nextR][nextC] != 0) {
 					v[nextR][nextC] = true;
-					int distance = dis[t[0]][t[1]] + 1;
-					
-					if (dis[nextR][nextC] == 1) {
-						dis[nextR][nextC] = distance;
-					} else {
-						dis[nextR][nextC] = Math.min(distance, dis[nextR][nextC]);
-					}
-					
+					arr[nextR][nextC] += arr[t[0]][t[1]];
 					d.addFirst(new int[] {nextR, nextC});
 				}
 			}
@@ -57,7 +50,6 @@ public class Main_2178 {
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
 		arr = new int[n][m];
-		dis = new int[n][m];
 		v = new boolean[n][m];
 		
 		for (int i = 0; i<n; i++) {
@@ -65,7 +57,6 @@ public class Main_2178 {
 			for (int j = 0; j<m; j++) {
 				int temp = Integer.parseInt(str.substring(j,j+1));
 				arr[i][j] = temp;
-				dis[i][j] = temp;
 			}
  		}
 		d.addFirst(new int[] {0,0});
@@ -73,7 +64,7 @@ public class Main_2178 {
 		bfs();
 		
 		//for (int[]t:arr) System.out.println(Arrays.toString(t));
-		System.out.println(dis[n-1][m-1]);
-		for (int[] t : dis) System.out.println(Arrays.toString(t));
+		System.out.println(arr[n-1][m-1]);
+
 	}
 }
