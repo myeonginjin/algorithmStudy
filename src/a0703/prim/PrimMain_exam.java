@@ -37,7 +37,7 @@ public class PrimMain_exam {
 			
 			for (int[] j : g[minVertex]) {
 				if(!v[j[0]] && w[j[0]]>j[1]) {
-							   w[j[0]]=j[1]; //
+							   w[j[0]]=j[1]; 
 				}
 			}
 		}

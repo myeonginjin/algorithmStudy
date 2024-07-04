@@ -5,7 +5,7 @@ import java.util.*;
 
 public class PrimMain {
 	public static void main(String[] args) throws Exception {
-		//System.setIn(new FileInputStream("src/a0703/prim/input_prim"));
+		System.setIn(new FileInputStream("src/a0703/prim/input_prim"));
 		Scanner sc = new Scanner(System.in);
 		int N = sc.nextInt();
 		List<int[]>[] g = new List[N]; for (int i = 0; i<N; i++) g[i] = new ArrayList<>();
@@ -23,9 +23,12 @@ public class PrimMain {
 		int sum=0,cnt=0;
 		minEdge[0]=0;
 		//System.out.println(Arrays.toString(minEdge)); System.out.println();
+		
 		for(int i = 0; i<N; i++) {
 			int min = Integer.MAX_VALUE;
 			int minVertex = -1;
+			
+			//아직 연결되지않은 정점 중 간선의 가중치가 가장 적은 곳 찾기
 			for (int j = 0; j<N; j++) {
 				if(!v[j] && min>minEdge[j]) {
 							min=minEdge[j];
@@ -34,11 +37,12 @@ public class PrimMain {
 			}
 			v[minVertex]=true;
 			sum+=min;
-//			System.out.println(Arrays.toString(v));
-//			System.out.println("minVertex="+minVertex);
-//			System.out.println("min="+min+" sum="+sum);
+			System.out.println(Arrays.toString(v));
+			System.out.println("minVertex="+minVertex);
+			System.out.println("min="+min+" sum="+sum);
 			if(cnt++==N-1) break;
 			
+			//영역이 넓어졌으니, 넓어진 영역(추가된 간선)을 통해 뻗어나갈 수 있는 간선 중에 기존 간선보다 개선된 간선이 있는지 탐색 후 기록
 			for (int[] j : g[minVertex]) {
 				if(!v[j[0]] && minEdge[j[0]]>j[1]) {
 							   minEdge[j[0]]=j[1]; //

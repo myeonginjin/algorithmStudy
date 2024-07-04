@@ -1,4 +1,4 @@
-package a0703.prim;
+package a0704.dijkstra;
 
 import java.io.*;
 import java.util.*;
@@ -6,7 +6,7 @@ import java.util.*;
 import java.io.*;
 import java.util.*;
 
-public class PrimPqMain_exam { 
+public class DijkstraPqMain_exam { 
 	public static void main(String[] args) throws Exception{
 		System.setIn(new FileInputStream("src/a0703/prim/input_prim.txt"));
 		Scanner sc=new Scanner(System.in);
@@ -20,7 +20,7 @@ public class PrimPqMain_exam {
 		}
 		boolean[] v=new boolean[N];
 		int[] w=new int[N];
-		for(int i=0; i<N; i++) w[i]=Integer.MAX_VALUE; 
+		for(int i=0; i<N; i++) w[i]=Integer.MAX_VALUE/2; 
 		PriorityQueue<int[]> pq=new PriorityQueue<>((o1,o2)->Integer.compare(o1[1],o2[1]));
 		int sum=0, cnt=0;
 		w[0]=0;		
