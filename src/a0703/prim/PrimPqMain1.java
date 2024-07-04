@@ -24,12 +24,12 @@ public class PrimPqMain1 {
 			PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2)->Integer.compare(o1[1], o2[1]));
 			int sum=0, cnt=0;
 			minEdge[0]=0;
-			pq.offer(new int[] {0,0}); //정점, 비용
+			pq.offer(new int[] {0,minEdge[0]}); //정점, 비용
 			System.out.println(Arrays.toString(minEdge)); System.out.println();
 			while(!pq.isEmpty()) {
-				int[] vw = pq.poll();
-				int min = vw[1];
-				int minVertex = vw[0];
+				int[] vc = pq.poll();
+				int min = vc[1];
+				int minVertex = vc[0];
 				if(v[minVertex]) continue;
 				
 				//step2
@@ -38,14 +38,13 @@ public class PrimPqMain1 {
 				System.out.println(Arrays.toString(v));
 				System.out.println("minVertex="+minVertex);
 				System.out.println("min="+min+" sum="+sum);
-				
 				if(cnt++==N-1) break;		//++은 저기에 넣어야해 아직 간선을 연결한게 아니에여
 			
 				// 갱신하러 가
 				for(int[] j:g[minVertex]) {
 					if(!v[j[0]] && minEdge[j[0]]>j[1]) {
 								   minEdge[j[0]]=j[1]; //갱신!
-								   pq.offer(j);
+								   pq.offer(new int[] {j[0], minEdge[j[0]]});
 					}
 				}
 				System.out.println(Arrays.toString(minEdge)); System.out.println("=================");
