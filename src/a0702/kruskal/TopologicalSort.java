@@ -21,6 +21,7 @@ public class TopologicalSort {//간선이 많으면 (행렬로 하는게) 적으
 			int from=sc.nextInt();  // 일반적으로 변수명 v
 			int to=sc.nextInt();  // u 를 많이 쓴다
 			g[from].add(to);
+//			g[to].add(from);
 			indegree[to]++;    //진입차수누적
 		}
 		for(List<Integer> a:g) System.out.println(a); System.out.println();

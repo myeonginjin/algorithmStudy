@@ -16,7 +16,7 @@ public class KruskalMain {
 	 static int find(int a) {
 	        if(p[a] == a) return a;
 	        return p[a]=find(p[a]);  //메모이 제이션 -> 하나하나 거쳐가는 것이 아니라 바로 결과 찾기 위해 저장!
-	    }
+	    } 
 
 	    static boolean union(int a, int b) {
 	        int aRoot = find(a);        // a 부모 찾기
