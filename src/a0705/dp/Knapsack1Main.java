@@ -4,7 +4,7 @@ package a0705.dp;
 import java.io.*;
 import java.util.*;
 
-public class Knapsack2Main {
+public class Knapsack1Main {
 	public static void main(String[] args) throws Exception {
 		System.setIn(new FileInputStream("res/input_knapsack"));
 		Scanner sc = new Scanner(System.in);
@@ -17,19 +17,18 @@ public class Knapsack2Main {
 			weights[i] = sc.nextInt();
 			profits[i] = sc.nextInt();
 		}
-		int[][] dp = new int[N+1][W+1];
-		for (int i = 1; i<=N; i++) {
-			for (int w =1; w<=W; w++) {
+		int[] dp = new int[W+1];
+		for (int i = 0; i<N; i++) {
+			//for (int w =1; w<W; w++) {
+			for (int w = W; w>=1; w--) {
 				if(weights[i]<=w) {
-					dp[i][w] = Math.max(dp[i-1][w], profits[i] + dp[i-1][w - weights[i]]);
-				} else {
-					dp[i][w] = dp[i-1][w];
+					dp[w] = Math.max(dp[w], profits[i] + dp[w - weights[i]] );
 				}
 			}
 			
 		}
 		
-		System.out.println(dp[N][W]);
+		System.out.println(dp[W]);
 		sc.close();
 	}
 }
