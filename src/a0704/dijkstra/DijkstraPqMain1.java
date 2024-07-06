@@ -34,7 +34,7 @@ public class DijkstraPqMain1 {
 				v[minVertex]=true;
 				System.out.println(Arrays.toString(v));
 				System.out.println("minVertex="+minVertex+" min="+min);
-				if(minVertex++==N-1) break;		
+				if(minVertex==N-1) break;		
 			
 				for(int[] j:g[minVertex]) {
 					if(!v[j[0]] && dist[j[0]]>min+j[1]) {
