@@ -15,48 +15,57 @@ public class Main_17471 {
 	static int minDif = Integer.MAX_VALUE;
 	static int[] union;
 	
-	
-	static int find(int c) {
-		if(union[c] == c) return c;
-		
-		return union[c] = find(union[c]);
-	}
 
-	static void makeUnion(int n1, int n2) {
-		int root1 = find(n1);
-		int root2 = find(n2);
-		
-		if(root1 == root2) return;
-		
-		union[root1] = root2;
-	}
-	
 	static boolean checkOk() {
-		boolean[] notPic = new boolean[n+1];
 				
-		
-		int bRoot = union[b.get(0)];
-		for (int i = 0; i<b.size(); i++) {
-			int to = b.get(i);
-			notPic[to] = true;
-			
-			
-			if(bRoot != union[to]) return false;
-		}
-
 		List<Integer> c = new ArrayList<>();
+		for (int i = 1; i<=n; i++) if(!b.contains(i)) c.add(i);
 		
-		for (int i = 1; i<=n; i++) {
-			if(!notPic[i]) c.add(i);
-		}
-
+		//b그룹 체크
+		boolean[] bg = new boolean[n+1];
+		ArrayDeque<Integer> q = new ArrayDeque<>();
 		
-		int cRoot = union[c.get(0)];
+		q.offer(b.get(0));
+		bg[b.get(0)] = true;
+		int cnt = 1;
 		
-		for (int i = 1; i<c.size(); i++) {
-			int to = c.get(i);
+		while(!q.isEmpty()) {
+			int t = q.poll();
 			
-			if(cRoot != union[to]) return false;
+			for (int nei: g[t]) {
+				if(!bg[nei] && b.contains(nei)) {
+					bg[nei] = true;
+					q.add(nei);
+					cnt++;
+				}
+			}
+		}
+		
+		for (int i = 0; i<b.size(); i++) {
+			if(!bg[b.get(i)]) return false;
+		}
+		
+		bg = new boolean[n+1];
+		q = new ArrayDeque<>();
+		
+		q.offer(c.get(0));
+		bg[c.get(0)] = true;
+		cnt = 1;
+		
+		while(!q.isEmpty()) {
+			int t = q.poll();
+			
+			for (int nei: g[t]) {
+				if(!bg[nei] && c.contains(nei)) {
+					bg[nei] = true;
+					q.add(nei);
+					cnt++;
+				}
+			}
+		}
+		
+		for (int i = 0; i<c.size(); i++) {
+			if(!bg[c.get(i)]) return false;
 		}
 		
 		return true;
@@ -72,7 +81,7 @@ public class Main_17471 {
 			
 			int sum = 0;
 			for (int i = 0; i<b.size(); i++) {
-				sum += cnts[b.get(i)-1];
+				sum += cnts[b.get(i)];
 			}
 			
 			minDif = Math.min(minDif, Math.abs( (totalSum - sum) -  sum ));
@@ -97,7 +106,7 @@ public class Main_17471 {
 		st = new StringTokenizer(str);
 		
 		//각 지역 인구수 
-		cnts = new int[n];
+		cnts = new int[n+1];
 		//그래프 인접리스트
 		g = new List[n+1]; for (int i = 1; i<=n; i++) g[i] = new ArrayList<>();
 		
@@ -106,7 +115,7 @@ public class Main_17471 {
 		
 		union = new int[n+1]; for (int i = 1; i<=n; i++) union[i] = i;
 		
-		for (int i = 0; i<n; i++) {
+		for (int i = 1; i<=n; i++) {
 			int cnt = Integer.parseInt(st.nextToken());
 			cnts[i] = cnt;
 			totalSum += cnt;
@@ -120,14 +129,10 @@ public class Main_17471 {
 			for (int j = 0; j<t; j++) {
 				int temp = Integer.parseInt(st.nextToken());
 				g[i].add(temp);
-				makeUnion(i,temp);
+				g[temp].add(i);
 			}
 		}
 		
-		for (int i = 1; i<=n; i++) {
-			find(i);
-		}
-
 		sub(0);
 		
 		minDif = 2147483647 == minDif ? -1 : minDif;
