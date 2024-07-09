@@ -33,7 +33,6 @@ public class Main_1991 {
 		System.out.println((int)'F' +" "+ (int)'A');
 		System.out.println(('F' - 'A' +1) *2);
 		System.out.println(('F' - 'A' +1)*2+1);
-		
 		System.out.println(Arrays.toString(tree));
 	}
 }
