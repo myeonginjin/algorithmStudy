@@ -37,5 +37,4 @@ public class PermMain {
 		System.out.println(C);
 		
 	}
-
 }
