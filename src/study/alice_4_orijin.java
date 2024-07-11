@@ -3,7 +3,7 @@ package study;
 import java.io.*;
 import java.util.*;
 
-public class alice_4_2 {
+public class alice_4_orijin {
 	static int n;
 	static ArrayList<Integer>[] g;
 	static ArrayList<Integer> perm;
