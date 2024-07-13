@@ -24,7 +24,7 @@ public class Main_11286 {
 				pq.add(t);
 			}
 		}
-		
+		//test
 		System.out.println(sb);
 	}
 }
