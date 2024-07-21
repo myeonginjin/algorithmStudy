@@ -1,6 +1,5 @@
 package study;
 
-import java.awt.image.SampleModel;
 import java.util.*;
 
 public class Main_2075 {
@@ -15,32 +14,61 @@ public class Main_2075 {
 				arr[i][j] = sc.nextInt();
 			}
 		}
-		int r = 0;
-		for (int c = 0; c<n; c++) {
-			int dif = arr[r][c];
-			int smallCnt = 0;
+		
+		
+		int pr = n-1;
+		int pc = 0;
+		int closerAns = 0;
+		
+		while (pr < n && pc < n && pr>=0 && pc>=0) {
+			int curN = arr[pr][pc];
+			int morebig = 0;
 			
-			serch : for (int j = 0; j<n; j++) {
-				if(j==c) continue;
-				for (int i = 0; i<n; i++) {
-					if (dif  > arr[i][j]) smallCnt++;
+			if(closerAns > arr[pr][pc]) {
+				pc++;
+				pr = n-1;
+				continue;
+			}
+			sercch : for (int c = 0; c<n; c++) {
+				
+				for (int r = 0; r<n; r++) {
+					if(pc==c && pr == r) continue;
+					int secN = arr[r][c];
 					
-					//해당 dif는 탈락
-					if(smallCnt==n) {
-						//해당 줄은 끝낫음 이미
-						if(r+1==n) {
-							break serch;
-						}
-						//해당 줄의 다음으로 큰 수로 다시 시작
-						dif = arr[++r][c];
-						smallCnt--;
-						i--;
+					if(secN > curN) morebig++;
+					
+					if(morebig==n) {
+						morebig = Math.max(morebig, arr[pr][pc]);
+						//System.out.println(curN +" "+morebig);
+						pr = n-1;
+						pc++;
+						break sercch;
 					}
 				}
 			}
 			
-			System.out.println(dif+"   "+smallCnt);
+			if (morebig==n) {
+				
+			} else {
+				//System.out.println("wow"+arr[pr][pc]);
+				if (morebig == n-1) {
+					System.out.println(arr[pr][pc]);
+					break;
+				} else {
+					if (pr == 0) {
+						pr = n-1;
+						pc++;
+					} else {
+						pr--;
+					}
+					
+				}
+			}
+			
 		}
+					
+			
+		
 		
 	}
 
