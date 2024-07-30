@@ -5,39 +5,42 @@ import java.util.*;
 
 public class Main_11725 {
 	static int n;
-	static int[] u;
-	
-	static void union(int v1, int v2) {
-		int r1 = find(v1);
-		int r2 = find(v2);
-		
-		if(r1!=r2) u[r2] = r1;
-	}
-	
-	static int find(int v) {
-		if(u[v] == v) return v;
-		
-		return u[v] = find(u[v]);
-	}
-	
+	static List<int[]>[] g;
+	static StringBuilder sb = new StringBuilder();
+
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		n = sc.nextInt();
-		u = new int[n+1]; for (int i = 1; i<=n; i++) u[i] = i;
+		g = new List[n+1]; for (int i = 1; i<=n; i++) g[i] = new ArrayList<>();
+		
 		
 		for (int i = 0; i<n-1; i++) {
 			int v1 = sc.nextInt();
 			int v2 = sc.nextInt();
+			g[v1].add(new int[] {v2,0});
+			g[v2].add(new int[] {v1,0});
+		}
+		
+		boolean[] v = new boolean[n+1];
+		v[1] = true;
+		
+		ArrayDeque<int[]> q = new ArrayDeque<>();
+		q.offer(new int[] {1,0});
+		
+		while(!q.isEmpty()) {
+			int[] t = q.poll();
+			int vn = t[0];
+			int depth = t[1];
 			
-			union(v1,v2);
+			for (int i = 0; i<g[vn].size(); i++) {
+				int child = g[vn].get(i)[0];
+				if(!v[child]) {
+					g[vn].get(i)[1] = depth+1;
+					q.offer(new int[] {child, depth+1});
+				}
+			}
 		}
-		System.out.println(Arrays.toString(u));
-		for (int i = 2; i<=n; i++) {
-			find(i);
-			System.out.println(u[i]);
-		}
-		
-		
 	}
 
 }
