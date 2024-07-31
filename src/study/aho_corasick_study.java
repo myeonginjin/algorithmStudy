@@ -60,7 +60,7 @@ public class aho_corasick_study {
 					
 					while (lastFailLink.childs[i] == null) {
 						//부모노드의 페일 링크 노드의 자식 중 이어질 곳이 없다면(현재 내 노드의 알파벳을 가진 노드가 없다면) 부모노드의 페일링크의 페일링크로 이동 이걸 무한반복 
-						lastFailLink = curNode.failLink.failLink;
+						lastFailLink = lastFailLink.failLink;
 					}
 					//현재 노드의 부모 노드의 페일링크로 이동 -> 이 페일링크 노드의 자식 노드중 현재 노드의 알파벳 값을 가진 노드를 페일링크로 연결
 					curNode.childs[i].failLink = lastFailLink.childs[i];
