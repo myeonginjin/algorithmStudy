@@ -50,12 +50,13 @@ public class aho_corasick_study {
 		
 		while (!q.isEmpty()) {
 			Node curNode = q.poll();
-			Node failLink = curNode.failLink;
+			
 			
 			for (int i = 0; i<curNode.childs.length; i++) {
 				if(curNode.childs[i]!= null) {
 					
-					//for문밖에 있어도 되는지 
+					//curNode.childs[i]에 i값이 바뀌며 새로운 자식을 찾을 때마다 failLink는 다시 curNode(i들의 부모노드)의 페일링크로 초기화되어야함. 왜? 특정 자식이 이 페일링크의 위치를 타고타고 트리 위에다가 가져다놨을 수도 있기 때
+					Node failLink = curNode.failLink;
 					
 					while (failLink.childs[i] == null) {
 						//부모노드의 페일 링크 노드의 자식 중 이어질 곳이 없다면(현재 내 노드의 알파벳을 가진 노드가 없다면) 부모노드의 페일링크의 페일링크로 이동 이걸 무한반복 
