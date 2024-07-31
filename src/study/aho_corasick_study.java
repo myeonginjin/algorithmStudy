@@ -2,15 +2,17 @@ package study;
 
 
 import java.util.*;
+import java.util.regex.PatternSyntaxException;
 
 
 
 public class aho_corasick_study {
+	 static ArrayList<String> findPatterns = new ArrayList<>();
 	static Node rootNode = new Node();
 		
 	static class Node {
 		Node[] childs;
-		ArrayList<Integer> outPuts;
+		ArrayList<String> outPuts;
 		Node failLink;
 		
 		public Node() {
@@ -31,7 +33,7 @@ public class aho_corasick_study {
 			
 			node = node.childs[t];
 		}
-		node.outPuts.add(index);
+		node.outPuts.add(pattern);
 	}
 	
 	static void makeFailLink() {
@@ -68,39 +70,37 @@ public class aho_corasick_study {
 					curNode.childs[i].outPuts.addAll(lastFailLink.childs[i].outPuts);
 					
 					q.offer(curNode.childs[i]);
-				}
+				} 
 				
 			}
 		}
 		
 	}
 	
-	//공부하기 
-    static List<int[]> search(String text) {
-        List<int[]> results = new ArrayList<>();
-        Node node = rootNode;
-        
-        for (int i = 0; i < text.length(); i++) {
-            int t = text.charAt(i) - 'a';
-            
-            while (node.childs[t] == null && node != rootNode) {
-                node = node.failLink;
+    static void search(String text) {
+
+        Node parentNode = rootNode;
+
+        for (char t : text.toCharArray()) {
+            int c = t - 'a';
+
+            while (parentNode.childs[c] == null) {
+                parentNode = parentNode.failLink;
             }
-            
-            node = node.childs[t];
-            if (node == null) {
-                node = rootNode;
-                continue;
+
+            parentNode = parentNode.childs[c];
+            if (parentNode == null) {
+            	parentNode = rootNode;
+            	continue;
             }
-            
-            for (int patternIndex : node.outPuts) {
-                results.add(new int[]{patternIndex, i});
-            }
+                
+
+            findPatterns.addAll(parentNode.outPuts);
+
         }
-        
-        return results;
     }
 	
+   
 	
 	
 	public static void main(String[] args) {	
@@ -112,11 +112,10 @@ public class aho_corasick_study {
 		makeFailLink();
 		
         String text = "achefache";
-        List<int[]> results = search(text);
         
-        for (int[] result : results) {
-            System.out.println("Pattern " + patterns[result[0]] + " found ending at index " + result[1]);
-        }
+        search(text);
+        
+        System.out.println(findPatterns);
         
 	}
 
