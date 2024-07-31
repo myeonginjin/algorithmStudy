@@ -56,16 +56,16 @@ public class aho_corasick_study {
 				if(curNode.childs[i]!= null) {
 					
 					//curNode.childs[i]에 i값이 바뀌며 새로운 자식을 찾을 때마다 failLink는 다시 curNode(i들의 부모노드)의 페일링크로 초기화되어야함. 왜? 특정 자식이 이 페일링크의 위치를 타고타고 트리 위에다가 가져다놨을 수도 있기 때
-					Node failLink = curNode.failLink;
+					Node lastFailLink = curNode.failLink;
 					
-					while (failLink.childs[i] == null) {
+					while (lastFailLink.childs[i] == null) {
 						//부모노드의 페일 링크 노드의 자식 중 이어질 곳이 없다면(현재 내 노드의 알파벳을 가진 노드가 없다면) 부모노드의 페일링크의 페일링크로 이동 이걸 무한반복 
-						failLink = failLink.failLink;
+						lastFailLink = curNode.failLink.failLink;
 					}
 					//현재 노드의 부모 노드의 페일링크로 이동 -> 이 페일링크 노드의 자식 노드중 현재 노드의 알파벳 값을 가진 노드를 페일링크로 연결
-					curNode.childs[i].failLink = failLink.childs[i];
+					curNode.childs[i].failLink = lastFailLink.childs[i];
 					//현재 노드외 연결된 페일링크 노드의 아웃풋 패턴이 있었다면 이 패턴을 현재 노드에서도 반환할 수 있도록 해줌  (ex. she he)
-					curNode.childs[i].outPuts.addAll(failLink.childs[i].outPuts);
+					curNode.childs[i].outPuts.addAll(lastFailLink.childs[i].outPuts);
 					
 					q.offer(curNode.childs[i]);
 				}
