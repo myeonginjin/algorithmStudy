@@ -44,8 +44,7 @@ public class aho_corasick_study {
 				q.offer(rootNode.childs[i]);
 				rootNode.childs[i].failLink = rootNode;
 			} else {
-				//없어도 동작하지만, 루트의 26개의 자식 중 링크될 노드가 있는지 모두 탐색하다가 없어서
-				//루드노드를 페일링크로 연결하는 비효율적인 작업을 바로 끝내줌 (해당 값의 자식이 루트 노드의 자식으로 없으면 바로 루트로 링크)
+				//serch에서 while문에서 결국 실패링크를 찾아내지못했을 때 루트노드부터 다시 시작할 수 있도록 해주는 역할도 함 반복문 탈출시켜줌 빈 자식 자리가 널이 아닌 루트
 				rootNode.childs[i] = rootNode;
 			}
 		}
@@ -71,10 +70,8 @@ public class aho_corasick_study {
 					
 					q.offer(curNode.childs[i]);
 				} 
-				
 			}
 		}
-		
 	}
 	
     static void search(String text) {
@@ -89,20 +86,18 @@ public class aho_corasick_study {
             }
 
             parentNode = parentNode.childs[c];
-            if (parentNode == null) {
-            	parentNode = rootNode;
-            	continue;
-            }
-                
-
+            
+            //아래 부분은 필요없지. 위 while문에서 실패 링크 계속 타다가 결국에 못찾으면 루트노드로 이동했을거임 루트노드의 자식은 빈자리도 root로 채워져 있어서 반복문 탈출
+            //그럼 이미 parentNode에는 루트 노드가 들어가 있으니 다음 탐색부터는 루트노드부터 시작하는걸로 알아서 처리되니 ㄱㅊ 
+//            if (parentNode == null) {
+//            	parentNode = rootNode;
+//            	continue;
+//            }
             findPatterns.addAll(parentNode.outPuts);
-
         }
     }
 	
    
-	
-	
 	public static void main(String[] args) {	
 		String[] patterns = new String[] {"achy", "cache","chef","he"};
 		
@@ -112,11 +107,9 @@ public class aho_corasick_study {
 		makeFailLink();
 		
         String text = "achefache";
-        
         search(text);
         
         System.out.println(findPatterns);
-        
 	}
 
 }
