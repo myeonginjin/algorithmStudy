@@ -3,44 +3,62 @@ package study;
 import java.io.*;
 import java.util.*;
 
+
+
+
+
 public class Main_11725 {
-	static int n;
-	static List<int[]>[] g;
-	static StringBuilder sb = new StringBuilder();
 
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		n = sc.nextInt();
-		g = new List[n+1]; for (int i = 1; i<=n; i++) g[i] = new ArrayList<>();
+		String str;
+		StringTokenizer st;
+		
+		LinkedList<Integer>[] g = new LinkedList[n+1]; for (int i = 1; i<=n; i++) g[i] = new LinkedList<>();
 		
 		
 		for (int i = 0; i<n-1; i++) {
-			int v1 = sc.nextInt();
-			int v2 = sc.nextInt();
-			g[v1].add(new int[] {v2,0});
-			g[v2].add(new int[] {v1,0});
+			str = br.readLine();
+			st = new StringTokenizer(str);
+			
+			int n1 = Integer.parseInt(st.nextToken());
+			int n2 = Integer.parseInt(st.nextToken());
+			
+			g[n1].add(n2);
+			g[n2].add(n1);
 		}
 		
 		boolean[] v = new boolean[n+1];
+		int[] p = new int[n+1];
+		
+		ArrayDeque<Integer> q = new ArrayDeque<>();
+		
+		q.add(1);
 		v[1] = true;
 		
-		ArrayDeque<int[]> q = new ArrayDeque<>();
-		q.offer(new int[] {1,0});
-		
 		while(!q.isEmpty()) {
-			int[] t = q.poll();
-			int vn = t[0];
-			int depth = t[1];
+			int t = q.poll();
+			//System.out.println(t);
 			
-			for (int i = 0; i<g[vn].size(); i++) {
-				int child = g[vn].get(i)[0];
-				if(!v[child]) {
-					g[vn].get(i)[1] = depth+1;
-					q.offer(new int[] {child, depth+1});
-				}
+			
+			for (int c : g[t]) {
+
+				if(v[c]) continue;
+				
+				v[t] = true;
+				p[c] = t;
+				q.add(c);
 			}
 		}
+		
+		
+		for (int i = 2; i<=n; i++) {
+			System.out.println(p[i]); 
+		}
+			
+		
 	}
 
 }
