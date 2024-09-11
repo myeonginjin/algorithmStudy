@@ -1,4 +1,4 @@
-package study;
+package a0911.LCS;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
